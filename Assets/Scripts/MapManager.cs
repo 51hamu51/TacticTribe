@@ -32,7 +32,8 @@ public class MapManager : MonoBehaviour
 
     void Start()
     {
-        RandomGenerate();
+        //RandomGenerate();
+        SpecifyGenerate();
     }
 
 
@@ -84,7 +85,43 @@ public class MapManager : MonoBehaviour
     /// </summary>
     public void SpecifyGenerate()
     {
+        // 0 = 草, 1 = 水
+        int[,] mapData = new int[,]
+        {
+        { 0, 0, 1, 1, 0, 0, 0, 1, 0 },
+        { 0, 1, 1, 1, 0, 0, 0, 0, 0 },
+        { 0, 0, 0, 0, 0, 1, 1, 1, 0 },
+        { 0, 0, 1, 1, 1, 1, 0, 0, 0 },
+        { 0, 0, 1, 0, 0, 0, 0, 0, 0 },
+        { 0, 0, 1, 0, 1, 1, 1, 0, 0 },
+        { 0, 0, 1, 0, 0, 0, 1, 0, 0 },
+        { 0, 0, 0, 0, 1, 0, 0, 0, 0 },
+        { 0, 0, 0, 0, 1, 0, 0, 0, 0 }
+        };
 
+        // サイズを更新
+        mapWidth = mapData.GetLength(0);
+        mapHeight = mapData.GetLength(1);
+
+        // 古いマップを削除
+        foreach (Transform child in mapParent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // 原点設定
+        Vector3 defaultPos = new Vector3(-(mapWidth / 2), 0, -(mapHeight / 2));
+
+        // マップ生成
+        for (int i = 0; i < mapWidth; i++)
+        {
+            for (int j = 0; j < mapHeight; j++)
+            {
+                Vector3 pos = defaultPos + new Vector3(i, 0, j);
+                GameObject prefab = mapData[i, j] == 0 ? grassBrock : waterBrock;
+                GameObject obj = Instantiate(prefab, pos, Quaternion.identity, mapParent);
+            }
+        }
     }
 
     void Update()
