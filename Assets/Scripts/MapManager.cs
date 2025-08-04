@@ -76,6 +76,10 @@ public class MapManager : MonoBehaviour
                 }
                 // オブジェクトの座標を適用
                 obj.transform.position = pos;
+
+                //生成したブロックの変数を設定
+                obj.GetComponent<Field>().xPos = (int)pos.x;
+                obj.GetComponent<Field>().zPos = (int)pos.z;
             }
         }
     }
@@ -120,6 +124,10 @@ public class MapManager : MonoBehaviour
                 Vector3 pos = defaultPos + new Vector3(i, 0, j);
                 GameObject prefab = mapData[i, j] == 0 ? grassBrock : waterBrock;
                 GameObject obj = Instantiate(prefab, pos, Quaternion.identity, mapParent);
+
+                //生成したブロックの変数を設定
+                obj.GetComponent<Field>().xPos = (int)pos.x;
+                obj.GetComponent<Field>().zPos = (int)pos.z;
             }
         }
     }

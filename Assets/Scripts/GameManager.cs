@@ -10,9 +10,39 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private Field preField;
 
+    public CharacterManager characterManager;
+
+    /// <summary>
+    /// 全てのキャラクターのリスト
+    /// </summary>
+    public List<Character> allCharacters;
+
+    /// <summary>
+    /// 今のフェーズ
+    /// </summary>
+    private Phase nowPhase;
+
+    /// <summary>
+    /// 選択中のキャラ
+    /// </summary>
+    private Character selectingChara;
+
+    public enum Phase
+    {
+        MyTurn_Start,     // 自分のターン開始
+        MyTurn_Moving,    // 移動先選択中
+        MyTurn_Command,   // 移動後のコマンド選択中
+    }
+
     void Start()
     {
+        // 全キャラクターをCharacterManagerに登録
+        foreach (var ch in allCharacters)
+        {
+            characterManager.RegisterCharacter(ch);
+        }
 
+        nowPhase = Phase.MyTurn_Start;
     }
 
     void Update()
@@ -50,12 +80,35 @@ public class GameManager : MonoBehaviour
     /// <param name="targetMapBlock">対象のブロックデータ</param>
     private void SelectBlock(Field targetBlock)
     {
-        if (preField != null)
+        switch (nowPhase)
         {
-            preField.ChoiceOff();
+            case Phase.MyTurn_Start:
+                if (preField != null)
+                {
+                    preField.ChoiceOff();
+                }
+                Debug.Log("ブロックがタップされました。\nブロックの座標：" + targetBlock.transform.position);
+                targetBlock.ChoiceOn();
+                preField = targetBlock;
+
+                //選択したマスにキャラがいたら次のフェーズへ
+                var charaData = characterManager.GetCharacterAtPosition(targetBlock.xPos, targetBlock.zPos);
+                if (charaData != null)
+                {
+                    selectingChara = charaData;
+                    nowPhase = Phase.MyTurn_Moving;
+                }
+                break;
+
+            case Phase.MyTurn_Moving:
+                selectingChara.MovePosition(targetBlock.xPos, targetBlock.zPos);
+                preField.ChoiceOff();
+                nowPhase = Phase.MyTurn_Start;
+                break;
+
+            case Phase.MyTurn_Command:
+
+                break;
         }
-        Debug.Log("ブロックがタップされました。\nブロックの座標：" + targetBlock.transform.position);
-        targetBlock.ChoiceOn();
-        preField = targetBlock;
     }
 }
