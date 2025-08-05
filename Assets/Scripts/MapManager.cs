@@ -30,6 +30,11 @@ public class MapManager : MonoBehaviour
     public int mapHeight = 9;
     private const int GENERATE_RATIO_GRASS = 90; // 草ブロックが生成される確率
 
+    /// <summary>
+    /// 座標 → Field を紐づける辞書
+    /// </summary>
+    private Dictionary<(int x, int z), Field> fieldDict = new Dictionary<(int, int), Field>();
+
     void Start()
     {
         //RandomGenerate();
@@ -78,8 +83,12 @@ public class MapManager : MonoBehaviour
                 obj.transform.position = pos;
 
                 //生成したブロックの変数を設定
-                obj.GetComponent<Field>().xPos = (int)pos.x;
-                obj.GetComponent<Field>().zPos = (int)pos.z;
+                Field field = obj.GetComponent<Field>();
+                field.xPos = (int)pos.x;
+                field.zPos = (int)pos.z;
+
+                // 辞書に登録
+                fieldDict[(field.xPos, field.zPos)] = field;
             }
         }
     }
@@ -112,6 +121,7 @@ public class MapManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+        fieldDict.Clear();
 
         // 原点設定
         Vector3 defaultPos = new Vector3(-(mapWidth / 2), 0, -(mapHeight / 2));
@@ -126,8 +136,12 @@ public class MapManager : MonoBehaviour
                 GameObject obj = Instantiate(prefab, pos, Quaternion.identity, mapParent);
 
                 //生成したブロックの変数を設定
-                obj.GetComponent<Field>().xPos = (int)pos.x;
-                obj.GetComponent<Field>().zPos = (int)pos.z;
+                Field field = obj.GetComponent<Field>();
+                field.xPos = (int)pos.x;
+                field.zPos = (int)pos.z;
+
+                // 辞書に登録
+                fieldDict[(field.xPos, field.zPos)] = field;
             }
         }
     }
@@ -161,7 +175,14 @@ public class MapManager : MonoBehaviour
         switch (character.movePattern)
         {
             case Character.MovePattern.Rook:
-
+                for (int i = -mapWidth / 2; i < mapWidth / 2 + 1; i++)
+                {
+                    SelectFieldAtPosition(i, character.zPos); // 横方向
+                }
+                for (int j = -mapHeight / 2; j < mapHeight / 2 + 1; j++)
+                {
+                    SelectFieldAtPosition(character.xPos, j); // 縦方向
+                }
                 break;
 
             case Character.MovePattern.Bishop:
@@ -169,4 +190,16 @@ public class MapManager : MonoBehaviour
                 break;
         }
     }
+
+    /// <summary>
+    /// 指定した座標にあるFieldを選択状態にする
+    /// </summary>
+    private void SelectFieldAtPosition(int x, int z)
+    {
+        if (fieldDict.TryGetValue((x, z), out Field field))
+        {
+            field.MoveOn();
+        }
+    }
+
 }
