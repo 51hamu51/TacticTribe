@@ -136,4 +136,37 @@ public class MapManager : MonoBehaviour
     {
 
     }
+
+    /// <summary>
+    /// 全てのブロックのChoiceOff関数を呼び出す
+    /// </summary>
+    public void AllChoiceOff()
+    {
+        foreach (Transform child in mapParent)
+        {
+            Field field = child.GetComponent<Field>();
+            if (field != null)
+            {
+                field.ChoiceOff();
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// 到達可能なFieldを調べ、MoveOnを呼び出す
+    /// </summary>
+    public void ResearchReachableField(Character character)
+    {
+        switch (character.movePattern)
+        {
+            case Character.MovePattern.Rook:
+
+                break;
+
+            case Character.MovePattern.Bishop:
+
+                break;
+        }
+    }
 }

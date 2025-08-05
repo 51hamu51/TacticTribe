@@ -631,6 +631,7 @@ MonoBehaviour:
   - {fileID: 112201066}
   - {fileID: 1130705859}
   - {fileID: 904402158}
+  mapManager: {fileID: 1767739209}
 --- !u!1 &1000009217103523
 GameObject:
   m_ObjectHideFlags: 0

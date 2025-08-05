@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private Character selectingChara;
 
+    public MapManager mapManager;
+
     public enum Phase
     {
         MyTurn_Start,     // 自分のターン開始
@@ -96,14 +98,18 @@ public class GameManager : MonoBehaviour
                 if (charaData != null)
                 {
                     selectingChara = charaData;
+                    mapManager.ResearchReachableField(selectingChara);
                     nowPhase = Phase.MyTurn_Moving;
                 }
                 break;
 
             case Phase.MyTurn_Moving:
-                selectingChara.MovePosition(targetBlock.xPos, targetBlock.zPos);
-                preField.ChoiceOff();
-                nowPhase = Phase.MyTurn_Start;
+                if (targetBlock.IsReachable)
+                {
+                    selectingChara.MovePosition(targetBlock.xPos, targetBlock.zPos);
+                    mapManager.AllChoiceOff();
+                    nowPhase = Phase.MyTurn_Start;
+                }
                 break;
 
             case Phase.MyTurn_Command:

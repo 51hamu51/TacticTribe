@@ -29,6 +29,14 @@ public class Character : MonoBehaviour
     /// </summary>
     public GameObject MapCamera;
 
+    public enum MovePattern
+    {
+        Rook,     // 飛車の動き
+        Bishop,    // 角の動き
+    }
+
+    public MovePattern movePattern;
+
     void Start()
     {
         ///初期位置に配置
