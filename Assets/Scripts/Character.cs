@@ -24,11 +24,6 @@ public class Character : MonoBehaviour
     /// </summary>
     public int zPos;
 
-    /// <summary>
-    /// カメラ
-    /// </summary>
-    public GameObject MapCamera;
-
     public enum MovePattern
     {
         Rook,     // 飛車の動き

@@ -28,6 +28,9 @@ public class MapManager : MonoBehaviour
     /// マップの縦幅
     /// </summary>
     public int mapHeight = 9;
+
+    public CharacterManager characterManager;
+
     private const int GENERATE_RATIO_GRASS = 90; // 草ブロックが生成される確率
 
     /// <summary>
@@ -103,10 +106,10 @@ public class MapManager : MonoBehaviour
         {
         { 0, 0, 1, 1, 0, 0, 0, 1, 0 },
         { 0, 1, 1, 1, 0, 0, 0, 0, 0 },
-        { 0, 0, 0, 0, 0, 1, 1, 1, 0 },
-        { 0, 0, 1, 1, 1, 1, 0, 0, 0 },
+        { 0, 0, 0, 0, 0, 1, 0, 1, 0 },
         { 0, 0, 1, 0, 0, 0, 0, 0, 0 },
-        { 0, 0, 1, 0, 1, 1, 1, 0, 0 },
+        { 0, 0, 1, 0, 0, 0, 0, 0, 0 },
+        { 0, 0, 0, 0, 1, 1, 0, 0, 0 },
         { 0, 0, 1, 0, 0, 0, 1, 0, 0 },
         { 0, 0, 0, 0, 1, 0, 0, 0, 0 },
         { 0, 0, 0, 0, 1, 0, 0, 0, 0 }
@@ -137,6 +140,14 @@ public class MapManager : MonoBehaviour
 
                 //生成したブロックの変数を設定
                 Field field = obj.GetComponent<Field>();
+                if (prefab == waterBrock)
+                {
+                    field.IsProhibit = true;
+                }
+                else
+                {
+                    field.IsProhibit = false;
+                }
                 field.xPos = (int)pos.x;
                 field.zPos = (int)pos.z;
 
@@ -175,15 +186,60 @@ public class MapManager : MonoBehaviour
         switch (character.movePattern)
         {
             case Character.MovePattern.Rook:
-                for (int i = -mapWidth / 2; i < mapWidth / 2 + 1; i++)
+                //初期位置にも移動できる
+                SelectFieldAtPosition(character.xPos, character.zPos);
+
+                // 移動方向ベクトル（左、右、下、上）
+                Vector2Int[] directions = new Vector2Int[]
                 {
-                    SelectFieldAtPosition(i, character.zPos); // 横方向
-                }
-                for (int j = -mapHeight / 2; j < mapHeight / 2 + 1; j++)
+                    new Vector2Int(-1, 0), // 左
+                    new Vector2Int(1, 0),  // 右
+                    new Vector2Int(0, -1), // 下
+                    new Vector2Int(0, 1)   // 上
+                };
+
+                foreach (var dir in directions)
                 {
-                    SelectFieldAtPosition(character.xPos, j); // 縦方向
+                    int x = character.xPos;
+                    int z = character.zPos;
+
+                    // 1マスずつ進める
+                    while (true)
+                    {
+                        x += dir.x;
+                        z += dir.y;
+
+                        // マップ外なら終了
+                        if (x < -mapWidth / 2 || x > mapWidth / 2 ||
+                            z < -mapHeight / 2 || z > mapHeight / 2)
+                            break;
+
+                        // マス取得
+
+                        if (fieldDict.TryGetValue((x, z), out Field field))
+                        {
+                            // 通行不可マスなら終了
+                            if (field.IsProhibit)
+                                break;
+
+                            // そのマスにキャラがいて、それが自分じゃないなら通り抜け
+                            Character other = characterManager.GetCharacterAtPosition(x, z);
+                            if (other != null && other != character)
+                            {
+                                continue;
+                            }
+
+                            // 移動可能マスを選択状態に
+                            SelectFieldAtPosition(x, z);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
                 }
                 break;
+
 
             case Character.MovePattern.Bishop:
 

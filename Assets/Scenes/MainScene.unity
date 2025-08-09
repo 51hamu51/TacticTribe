@@ -135,7 +135,7 @@ MonoBehaviour:
   initPos_Z: 0
   xPos: 0
   zPos: 0
-  MapCamera: {fileID: 2008710238}
+  movePattern: 0
 --- !u!1 &283751125
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,7 +203,7 @@ MonoBehaviour:
   initPos_Z: 0
   xPos: 0
   zPos: 0
-  MapCamera: {fileID: 2008710238}
+  movePattern: 0
 --- !u!114 &904402158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,7 +220,7 @@ MonoBehaviour:
   initPos_Z: 0
   xPos: 0
   zPos: 0
-  MapCamera: {fileID: 2008710238}
+  movePattern: 0
 --- !u!114 &1130705859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,7 +237,7 @@ MonoBehaviour:
   initPos_Z: 0
   xPos: 0
   zPos: 0
-  MapCamera: {fileID: 2008710238}
+  movePattern: 0
 --- !u!114 &1593746003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,7 +254,7 @@ MonoBehaviour:
   initPos_Z: 1
   xPos: 0
   zPos: 0
-  MapCamera: {fileID: 2008710238}
+  movePattern: 0
 --- !u!1 &1767739207
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,6 +304,7 @@ MonoBehaviour:
   waterBrock: {fileID: 2285953746688101612, guid: d8e2bdf756203d844abc6ef593306111, type: 3}
   mapWidth: 9
   mapHeight: 9
+  characterManager: {fileID: 283751127}
 --- !u!114 &1801225918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,7 +321,7 @@ MonoBehaviour:
   initPos_Z: 0
   xPos: 0
   zPos: 0
-  MapCamera: {fileID: 2008710238}
+  movePattern: 0
 --- !u!1 &1949804264
 GameObject:
   m_ObjectHideFlags: 0

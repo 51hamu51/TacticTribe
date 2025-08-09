@@ -27,6 +27,11 @@ public class Field : MonoBehaviour
     /// </summary>
     public bool IsReachable;
 
+    /// <summary>
+    /// その場所にキャラクターが存在できないならtrue
+    /// </summary>
+    public bool IsProhibit;
+
     public void Start()
     {
         ChoiceObject.SetActive(false);
@@ -50,6 +55,7 @@ public class Field : MonoBehaviour
         IsReachable = true;
         MoveObject.SetActive(true);
     }
+
 
 
     /// <summary>
