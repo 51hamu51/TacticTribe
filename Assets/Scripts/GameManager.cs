@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
 
     public MapManager mapManager;
 
+    public StatusDisplayManager statusDisplayManager;
+
     public enum Phase
     {
         MyTurn_Start,     // 自分のターン開始
@@ -99,6 +101,7 @@ public class GameManager : MonoBehaviour
                 {
                     selectingChara = charaData;
                     mapManager.ResearchReachableField(selectingChara);
+                    statusDisplayManager.ShowStatus(selectingChara);
                     nowPhase = Phase.MyTurn_Moving;
                 }
                 break;

@@ -224,7 +224,7 @@ public class MapManager : MonoBehaviour
     /// </summary>
     /// <param name="character">キャラ情報</param>
     /// <param name="maxDist">動ける距離(マンハッタン距離)</param>
-    public void BFSRangeMove(Character character, int maxDist)
+    private void BFSRangeMove(Character character, int maxDist)
     {
         Queue<(int x, int z, int dist)> queue = new Queue<(int, int, int)>();
         HashSet<(int, int)> visited = new HashSet<(int, int)>();

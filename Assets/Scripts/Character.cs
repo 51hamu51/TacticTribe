@@ -24,6 +24,31 @@ public class Character : MonoBehaviour
     /// </summary>
     public int zPos;
 
+    /// <summary>
+    /// 表示名
+    /// </summary>
+    public string characterName;
+
+    /// <summary>
+    /// 最大HP
+    /// </summary>
+    public int maxHP;
+
+    /// <summary>
+    /// 現在のHP
+    /// </summary>
+    public int nowHP;
+
+    /// <summary>
+    /// 攻撃力
+    /// </summary>
+    public int atk;
+
+    /// <summary>
+    /// 防御力
+    /// </summary>
+    public int def;
+
     public enum MovePattern
     {
         Rook,     // 飛車の動き
@@ -45,6 +70,8 @@ public class Character : MonoBehaviour
 
         xPos = initPos_X;
         zPos = initPos_Z;
+
+        nowHP = maxHP;
     }
 
     void Update()
