@@ -17,6 +17,11 @@ public class StatusDisplayManager : MonoBehaviour
     /// </summary>
     public DefText defText;
 
+    /// <summary>
+    /// HPゲージ
+    /// </summary>
+    public HPGauge hpGauge;
+
     void Start()
     {
 
@@ -36,6 +41,7 @@ public class StatusDisplayManager : MonoBehaviour
     {
         atkText.AtkDisplay(character);
         defText.DefDisplay(character);
+        hpGauge.SetHP(character);
         nameText.NameDisplay(character);
     }
 }
