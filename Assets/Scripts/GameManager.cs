@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
 
     public StatusDisplayManager statusDisplayManager;
 
+    public ButtonManager buttonManager;
+
     public enum Phase
     {
         MyTurn_Start,     // 自分のターン開始
@@ -97,12 +99,17 @@ public class GameManager : MonoBehaviour
 
                 //選択したマスにキャラがいたら次のフェーズへ
                 var charaData = characterManager.GetCharacterAtPosition(targetBlock.xPos, targetBlock.zPos);
-                if (charaData != null)
+                if (charaData != null && !charaData.IsEnemy)
                 {
                     selectingChara = charaData;
                     mapManager.ResearchReachableField(selectingChara);
                     statusDisplayManager.ShowStatus(selectingChara);
                     nowPhase = Phase.MyTurn_Moving;
+                }
+                else if (charaData != null)//敵ならステータスの表示のみ行う
+                {
+                    selectingChara = charaData;
+                    statusDisplayManager.ShowStatus(selectingChara);
                 }
                 break;
 
@@ -111,7 +118,8 @@ public class GameManager : MonoBehaviour
                 {
                     selectingChara.MovePosition(targetBlock.xPos, targetBlock.zPos);
                     mapManager.AllChoiceOff();
-                    nowPhase = Phase.MyTurn_Start;
+                    buttonManager.ShowCommandButtons();
+                    //nowPhase = Phase.MyTurn_Start;
                 }
                 break;
 
@@ -119,5 +127,23 @@ public class GameManager : MonoBehaviour
 
                 break;
         }
+    }
+
+    /// <summary>
+    /// 攻撃コマンドボタンが押されたとき
+    /// </summary>
+    public void AttackCommand()
+    {
+        buttonManager.HideCommandButtons();
+        nowPhase = Phase.MyTurn_Start;
+    }
+
+    /// <summary>
+    /// 待機コマンドボタンが押されたとき
+    /// </summary>
+    public void WaitCommand()
+    {
+        buttonManager.HideCommandButtons();
+        nowPhase = Phase.MyTurn_Start;
     }
 }
