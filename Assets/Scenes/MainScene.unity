@@ -140,6 +140,7 @@ MonoBehaviour:
   nowHP: 0
   atk: 15
   def: 3
+  IsEnemy: 0
   movePattern: 2
 --- !u!1 &132094422
 GameObject:
@@ -439,6 +440,7 @@ MonoBehaviour:
   nowHP: 0
   atk: 3
   def: 3
+  IsEnemy: 0
   movePattern: 1
 --- !u!1 &748684889
 GameObject:
@@ -687,6 +689,7 @@ MonoBehaviour:
   nowHP: 0
   atk: 6
   def: 3
+  IsEnemy: 0
   movePattern: 0
 --- !u!114 &1130705859
 MonoBehaviour:
@@ -709,6 +712,7 @@ MonoBehaviour:
   nowHP: 0
   atk: 3
   def: 7
+  IsEnemy: 0
   movePattern: 2
 --- !u!1 &1150932672
 GameObject:
@@ -1247,6 +1251,7 @@ MonoBehaviour:
   nowHP: 0
   atk: 8
   def: 7
+  IsEnemy: 0
   movePattern: 2
 --- !u!1 &1767739207
 GameObject:
@@ -1319,6 +1324,7 @@ MonoBehaviour:
   nowHP: 0
   atk: 3
   def: 3
+  IsEnemy: 0
   movePattern: 2
 --- !u!1 &1840170645
 GameObject:
@@ -6891,6 +6897,7 @@ MonoBehaviour:
   nowHP: 0
   atk: 4
   def: 2
+  IsEnemy: 1
   movePattern: 2
 --- !u!1 &7527186950296084148
 GameObject:

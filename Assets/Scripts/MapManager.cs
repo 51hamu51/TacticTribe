@@ -275,6 +275,10 @@ public class MapManager : MonoBehaviour
                 {
                     if (field.IsProhibit) continue;
 
+                    Character other = characterManager.GetCharacterAtPosition(x, z);
+                    if (other != null && other.IsEnemy)
+                        break;
+
                     // キャラがいる場合
                     visited.Add((nx, nz));
                     queue.Enqueue((nx, nz, dist + 1));
@@ -313,6 +317,9 @@ public class MapManager : MonoBehaviour
                         break;
 
                     Character other = characterManager.GetCharacterAtPosition(x, z);
+                    if (other != null && other.IsEnemy)
+                        break;
+
                     if (other != null && other != character)
                         continue;
 

@@ -49,6 +49,11 @@ public class Character : MonoBehaviour
     /// </summary>
     public int def;
 
+    /// <summary>
+    /// 敵ならtrue
+    /// </summary>
+    public bool IsEnemy;
+
     public enum MovePattern
     {
         Rook,     // 飛車の動き
