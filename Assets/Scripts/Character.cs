@@ -28,6 +28,8 @@ public class Character : MonoBehaviour
     {
         Rook,     // 飛車の動き
         Bishop,    // 角の動き
+        Step3, // ３歩動ける
+        Step4, // ４歩動ける
     }
 
     public MovePattern movePattern;
