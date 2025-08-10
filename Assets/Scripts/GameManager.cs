@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
 
     public MapManager mapManager;
 
+    public MoveRangeSearcher moveRangeSearcher;
+
     public StatusDisplayManager statusDisplayManager;
 
     public ButtonManager buttonManager;
@@ -102,7 +104,7 @@ public class GameManager : MonoBehaviour
                 if (charaData != null && !charaData.IsEnemy)
                 {
                     selectingChara = charaData;
-                    mapManager.ResearchReachableField(selectingChara);
+                    moveRangeSearcher.ResearchReachableField(selectingChara);
                     statusDisplayManager.ShowStatus(selectingChara);
                     nowPhase = Phase.MyTurn_Moving;
                 }

@@ -1958,7 +1958,6 @@ MonoBehaviour:
   waterBrock: {fileID: 2285953746688101612, guid: d8e2bdf756203d844abc6ef593306111, type: 3}
   mapWidth: 9
   mapHeight: 9
-  characterManager: {fileID: 283751127}
 --- !u!114 &1801225918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2501,6 +2500,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2116645918}
   - component: {fileID: 2116645919}
+  - component: {fileID: 2116645920}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2545,8 +2545,23 @@ MonoBehaviour:
   - {fileID: 904402158}
   - {fileID: 7442050116437190021}
   mapManager: {fileID: 1767739209}
+  moveRangeSearcher: {fileID: 2116645920}
   statusDisplayManager: {fileID: 1895098925}
   buttonManager: {fileID: 693020413}
+--- !u!114 &2116645920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116645917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e15c5e59546bdf04baf484819f0b6ffb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapManager: {fileID: 1767739209}
+  characterManager: {fileID: 283751127}
 --- !u!1 &1000009217103523
 GameObject:
   m_ObjectHideFlags: 0

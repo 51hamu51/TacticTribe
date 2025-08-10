@@ -13,6 +13,11 @@ public class Field : MonoBehaviour
     public GameObject MoveObject;
 
     /// <summary>
+    /// 攻撃可能エフェクト
+    /// </summary>
+    public GameObject AttackableObject;
+
+    /// <summary>
     /// x方向の位置
     /// </summary>
     public int xPos;
@@ -36,6 +41,7 @@ public class Field : MonoBehaviour
     {
         ChoiceObject.SetActive(false);
         MoveObject.SetActive(false);
+        AttackableObject.SetActive(false);
         IsReachable = false;
     }
 
@@ -56,6 +62,14 @@ public class Field : MonoBehaviour
         MoveObject.SetActive(true);
     }
 
+    /// <summary>
+    /// 攻撃可能なとき
+    /// </summary>
+    public void AttackableOn()
+    {
+        AttackableObject.SetActive(true);
+    }
+
 
 
     /// <summary>
@@ -66,5 +80,6 @@ public class Field : MonoBehaviour
         IsReachable = false;
         ChoiceObject.SetActive(false);
         MoveObject.SetActive(false);
+        AttackableObject.SetActive(false);
     }
 }
