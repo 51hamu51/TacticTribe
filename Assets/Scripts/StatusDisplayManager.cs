@@ -7,6 +7,16 @@ public class StatusDisplayManager : MonoBehaviour
     /// </summary>
     public NameText nameText;
 
+    /// <summary>
+    /// キャラクターの攻撃力を表示するテキスト
+    /// </summary>
+    public AtkText atkText;
+
+    /// <summary>
+    /// キャラクターの防御力を表示するテキスト
+    /// </summary>
+    public DefText defText;
+
     void Start()
     {
 
@@ -24,7 +34,8 @@ public class StatusDisplayManager : MonoBehaviour
     /// <param name="character">キャラデータ</param>
     public void ShowStatus(Character character)
     {
-
+        atkText.AtkDisplay(character);
+        defText.DefDisplay(character);
         nameText.NameDisplay(character);
     }
 }
