@@ -274,6 +274,7 @@ MonoBehaviour:
   atk: 15
   def: 3
   IsEnemy: 0
+  attackPattern: 0
   movePattern: 2
 --- !u!1 &132094422
 GameObject:
@@ -574,6 +575,7 @@ MonoBehaviour:
   atk: 3
   def: 3
   IsEnemy: 0
+  attackPattern: 0
   movePattern: 1
 --- !u!1 &693020408
 GameObject:
@@ -941,6 +943,7 @@ MonoBehaviour:
   atk: 6
   def: 3
   IsEnemy: 0
+  attackPattern: 0
   movePattern: 0
 --- !u!1 &932922390
 GameObject:
@@ -1097,6 +1100,7 @@ MonoBehaviour:
   atk: 3
   def: 7
   IsEnemy: 0
+  attackPattern: 0
   movePattern: 2
 --- !u!1 &1147426591
 GameObject:
@@ -1772,6 +1776,7 @@ MonoBehaviour:
   atk: 8
   def: 7
   IsEnemy: 0
+  attackPattern: 0
   movePattern: 2
 --- !u!1 &1606425811
 GameObject:
@@ -1980,6 +1985,7 @@ MonoBehaviour:
   atk: 3
   def: 3
   IsEnemy: 0
+  attackPattern: 0
   movePattern: 2
 --- !u!1 &1840170645
 GameObject:
@@ -2501,6 +2507,7 @@ GameObject:
   - component: {fileID: 2116645918}
   - component: {fileID: 2116645919}
   - component: {fileID: 2116645920}
+  - component: {fileID: 2116645921}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2548,6 +2555,7 @@ MonoBehaviour:
   moveRangeSearcher: {fileID: 2116645920}
   statusDisplayManager: {fileID: 1895098925}
   buttonManager: {fileID: 693020413}
+  attackRangeSearcher: {fileID: 2116645921}
 --- !u!114 &2116645920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2562,6 +2570,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 1767739209}
   characterManager: {fileID: 283751127}
+--- !u!114 &2116645921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116645917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c465fd06f32e5e54496a20793c7a6f35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapManager: {fileID: 1767739209}
 --- !u!1 &1000009217103523
 GameObject:
   m_ObjectHideFlags: 0
@@ -7570,6 +7591,7 @@ MonoBehaviour:
   atk: 4
   def: 2
   IsEnemy: 1
+  attackPattern: 0
   movePattern: 2
 --- !u!1 &7527186950296084148
 GameObject:

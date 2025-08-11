@@ -62,6 +62,14 @@ public class Character : MonoBehaviour
         Step4, // ４歩動ける
     }
 
+    public enum AttackPattern
+    {
+        Normal,     // 通常
+        Bow,    // 弓
+    }
+
+    public AttackPattern attackPattern;
+
     public MovePattern movePattern;
 
     void Start()

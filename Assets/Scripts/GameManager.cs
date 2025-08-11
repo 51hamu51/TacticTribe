@@ -35,11 +35,14 @@ public class GameManager : MonoBehaviour
 
     public ButtonManager buttonManager;
 
+    public AttackRangeSearcher attackRangeSearcher;
+
     public enum Phase
     {
         MyTurn_Start,     // 自分のターン開始
         MyTurn_Moving,    // 移動先選択中
         MyTurn_Command,   // 移動後のコマンド選択中
+        MyTurn_Attack,  //攻撃先選択中
     }
 
     void Start()
@@ -128,6 +131,13 @@ public class GameManager : MonoBehaviour
             case Phase.MyTurn_Command:
 
                 break;
+
+            case Phase.MyTurn_Attack:
+                if (targetBlock.IsAttackable)
+                {
+                    Attack(targetBlock);
+                }
+                break;
         }
     }
 
@@ -137,7 +147,8 @@ public class GameManager : MonoBehaviour
     public void AttackCommand()
     {
         buttonManager.HideCommandButtons();
-        nowPhase = Phase.MyTurn_Start;
+        attackRangeSearcher.ResearchAttackableField(selectingChara);
+        nowPhase = Phase.MyTurn_Attack;
     }
 
     /// <summary>
@@ -146,6 +157,15 @@ public class GameManager : MonoBehaviour
     public void WaitCommand()
     {
         buttonManager.HideCommandButtons();
+        nowPhase = Phase.MyTurn_Start;
+    }
+
+    /// <summary>
+    /// 攻撃
+    /// </summary>
+    public void Attack(Field targetBlock)
+    {
+        targetBlock.ChoiceOff();
         nowPhase = Phase.MyTurn_Start;
     }
 }
