@@ -22,7 +22,13 @@ public class AttackRangeSearcher : MonoBehaviour
         switch (character.attackPattern)
         {
             case Character.AttackPattern.Normal:
-                SelectAttackFieldAtPosition(character.xPos, character.zPos);
+                for (int i = -1; i < 2; i++)
+                {
+                    for (int j = -1; j < 2; j++)
+                    {
+                        SelectAttackFieldAtPosition(character.xPos + i, character.zPos + j);
+                    }
+                }
                 break;
 
             case Character.AttackPattern.Bow:

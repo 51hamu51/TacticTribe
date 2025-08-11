@@ -165,7 +165,15 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void Attack(Field targetBlock)
     {
-        targetBlock.ChoiceOff();
+        mapManager.AllChoiceOff();
+
+        //選択したマスに敵キャラがいたら攻撃
+        var charaData = characterManager.GetCharacterAtPosition(targetBlock.xPos, targetBlock.zPos);
+        if (charaData != null && charaData.IsEnemy)
+        {
+            charaData.Damage(selectingChara.atk);
+        }
+
         nowPhase = Phase.MyTurn_Start;
     }
 }

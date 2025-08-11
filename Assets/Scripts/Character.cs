@@ -109,4 +109,17 @@ public class Character : MonoBehaviour
         xPos = targetXPos;
         zPos = targetZPos;
     }
+
+    /// <summary>
+    /// 攻撃を受ける
+    /// </summary>
+    public void Damage(int attack)
+    {
+        int damage = attack - def;
+        if (damage > 0)
+        {
+            nowHP -= damage;
+        }
+
+    }
 }
