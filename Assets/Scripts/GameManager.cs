@@ -121,10 +121,8 @@ public class GameManager : MonoBehaviour
             case Phase.MyTurn_Moving:
                 if (targetBlock.IsReachable)
                 {
-                    selectingChara.MovePosition(targetBlock.xPos, targetBlock.zPos);
+                    moveRangeSearcher.MoveCharacterTo(selectingChara, targetBlock.xPos, targetBlock.zPos);//指定座標まで移動
                     mapManager.AllChoiceOff();
-                    buttonManager.ShowCommandButtons();
-                    //nowPhase = Phase.MyTurn_Start;
                 }
                 break;
 

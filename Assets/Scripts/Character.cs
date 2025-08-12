@@ -98,25 +98,6 @@ public class Character : MonoBehaviour
     }
 
     /// <summary>
-    /// 対象の座標へとキャラクターを移動させる
-    /// </summary>
-    /// <param name="targetXPos">x座標</param>
-    /// <param name="targetZPos">z座標</param>
-    public void MovePosition(int targetXPos, int targetZPos)
-    {
-        // オブジェクトを移動させる
-        // 移動先座標への相対座標を取得
-        Vector3 movePos = Vector3.zero;
-        movePos.x = targetXPos - xPos;
-        movePos.z = targetZPos - zPos;
-        transform.position += movePos;
-
-        // キャラクターデータに位置を保存
-        xPos = targetXPos;
-        zPos = targetZPos;
-    }
-
-    /// <summary>
     /// 攻撃を受ける
     /// </summary>
     public void Damage(int attack)

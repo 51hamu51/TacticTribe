@@ -1,11 +1,17 @@
 using UnityEngine;
 using System.Collections.Generic;
+using DG.Tweening;
 
 public class MoveRangeSearcher : MonoBehaviour
 {
     public MapManager mapManager;
 
     public CharacterManager characterManager;
+
+    public ButtonManager buttonManager;
+
+    //経路復元用
+    private Dictionary<(int, int), (int, int)?> parentMap;
 
 
     /// <summary>
@@ -56,11 +62,13 @@ public class MoveRangeSearcher : MonoBehaviour
     /// <param name="maxDist">動ける距離(マンハッタン距離)</param>
     private void BFSRangeMove(Character character, int maxDist)
     {
+        parentMap = new Dictionary<(int, int), (int, int)?>();
         Queue<(int x, int z, int dist)> queue = new Queue<(int, int, int)>();
         HashSet<(int, int)> visited = new HashSet<(int, int)>();
 
         queue.Enqueue((character.xPos, character.zPos, 0));
         visited.Add((character.xPos, character.zPos));
+        parentMap[(character.xPos, character.zPos)] = null;//起点
 
         // 移動方向ベクトル（左、右、下、上）
         Vector2Int[] directions = new Vector2Int[]
@@ -112,6 +120,7 @@ public class MoveRangeSearcher : MonoBehaviour
                     // キャラがいる場合
                     visited.Add((nx, nz));
                     queue.Enqueue((nx, nz, dist + 1));
+                    parentMap[(nx, nz)] = (x, z); // 親を保存
                 }
             }
         }
@@ -126,6 +135,9 @@ public class MoveRangeSearcher : MonoBehaviour
     {
         // 初期位置も移動可能にする
         SelectFieldAtPosition(character.xPos, character.zPos);
+
+        parentMap = new Dictionary<(int, int), (int, int)?>();
+        parentMap[(character.xPos, character.zPos)] = null;
 
         foreach (var dir in directions)
         {
@@ -154,6 +166,7 @@ public class MoveRangeSearcher : MonoBehaviour
                         continue;
 
                     SelectFieldAtPosition(x, z);
+                    parentMap[(x, z)] = (x - dir.x, z - dir.y); // 親記録
                 }
                 else
                 {
@@ -174,5 +187,36 @@ public class MoveRangeSearcher : MonoBehaviour
         {
             field.MoveOn();
         }
+    }
+
+    /// <summary>
+    /// 指定座標まで移動（縦横順で移動）
+    /// </summary>
+    public void MoveCharacterTo(Character character, int targetX, int targetZ)
+    {
+        if (!parentMap.ContainsKey((targetX, targetZ))) return;
+
+        // 経路復元
+        List<Vector3> path = new List<Vector3>();
+        var cur = (targetX, targetZ);
+        while (cur != (character.xPos, character.zPos))
+        {
+            path.Add(new Vector3(cur.Item1, character.transform.position.y, cur.Item2));
+            cur = parentMap[cur].Value;
+        }
+        path.Reverse();
+
+        // DOTweenで順番に移動（縦→横）
+        Sequence seq = DOTween.Sequence();
+        foreach (var pos in path)
+        {
+            seq.Append(character.transform.DOMove(pos, 0.25f).SetEase(Ease.Linear));
+        }
+        seq.OnComplete(() =>
+        {
+            character.xPos = targetX;
+            character.zPos = targetZ;
+            buttonManager.ShowCommandButtons();
+        });
     }
 }

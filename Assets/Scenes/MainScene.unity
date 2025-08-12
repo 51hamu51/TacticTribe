@@ -274,6 +274,7 @@ MonoBehaviour:
   atk: 15
   def: 3
   IsEnemy: 0
+  fadeDuration: 1
   attackPattern: 0
   movePattern: 2
 --- !u!1 &132094422
@@ -575,6 +576,7 @@ MonoBehaviour:
   atk: 3
   def: 3
   IsEnemy: 0
+  fadeDuration: 1
   attackPattern: 0
   movePattern: 1
 --- !u!1 &693020408
@@ -943,6 +945,7 @@ MonoBehaviour:
   atk: 6
   def: 3
   IsEnemy: 0
+  fadeDuration: 1
   attackPattern: 0
   movePattern: 0
 --- !u!1 &932922390
@@ -1150,6 +1153,7 @@ MonoBehaviour:
   atk: 3
   def: 7
   IsEnemy: 0
+  fadeDuration: 1
   attackPattern: 0
   movePattern: 2
 --- !u!1 &1147426591
@@ -1928,8 +1932,9 @@ MonoBehaviour:
   atk: 8
   def: 7
   IsEnemy: 0
+  fadeDuration: 1
   attackPattern: 0
-  movePattern: 2
+  movePattern: 3
 --- !u!1 &1606425811
 GameObject:
   m_ObjectHideFlags: 0
@@ -2137,6 +2142,7 @@ MonoBehaviour:
   atk: 3
   def: 3
   IsEnemy: 0
+  fadeDuration: 1
   attackPattern: 0
   movePattern: 2
 --- !u!1 &1840170645
@@ -2722,6 +2728,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 1767739209}
   characterManager: {fileID: 283751127}
+  buttonManager: {fileID: 693020413}
 --- !u!114 &2116645921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7743,6 +7750,7 @@ MonoBehaviour:
   atk: 4
   def: 2
   IsEnemy: 1
+  fadeDuration: 1
   attackPattern: 0
   movePattern: 2
 --- !u!1 &7527186950296084148
