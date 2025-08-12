@@ -128,5 +128,16 @@ public class Character : MonoBehaviour
         //ダメージエフェクトを再生
         DamageViewManager.Instance.Play(damage, new Vector3(xPos, 0, zPos));
 
+
+        if (nowHP <= 0)
+        {
+            Dead();
+        }
+
+    }
+
+    public void Dead()
+    {
+        Destroy(this.gameObject);
     }
 }
