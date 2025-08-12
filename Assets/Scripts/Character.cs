@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Character : MonoBehaviour
 {
@@ -53,6 +54,11 @@ public class Character : MonoBehaviour
     /// 敵ならtrue
     /// </summary>
     public bool IsEnemy;
+
+    /// <summary>
+    /// 死んで消えるのにかかる時間
+    /// </summary>
+    public float fadeDuration = 1f;
 
     public enum MovePattern
     {
@@ -138,6 +144,14 @@ public class Character : MonoBehaviour
 
     public void Dead()
     {
-        Destroy(this.gameObject);
+        //子オブジェクトのrendererを取得
+        Renderer rend = GetComponentInChildren<Renderer>();
+        if (rend != null)
+        {
+            //色を徐々に薄くする
+            Material mat = rend.material;
+            mat.DOFade(0f, fadeDuration)
+                .OnComplete(() => Destroy(this.gameObject)); // 完了後に破壊
+        }
     }
 }
