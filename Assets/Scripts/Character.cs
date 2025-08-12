@@ -120,6 +120,13 @@ public class Character : MonoBehaviour
         {
             nowHP -= damage;
         }
+        else
+        {
+            damage = 0;
+        }
+
+        //ダメージエフェクトを再生
+        DamageViewManager.Instance.Play(damage, new Vector3(xPos, 0, zPos));
 
     }
 }
