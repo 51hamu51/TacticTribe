@@ -2590,7 +2590,6 @@ MonoBehaviour:
   mapManager: {fileID: 1767739209}
   characterManager: {fileID: 283751127}
   buttonManager: {fileID: 693020413}
-  tiltAngle: -30
 --- !u!114 &2116645921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2661,10 +2660,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: DogKnight
       objectReference: {fileID: 0}
-    - target: {fileID: 8065739166888046904, guid: 0c140a8191ccbd744851192934339cd0, type: 3}
-      propertyPath: tiltAngle
-      value: -30
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2727,14 +2722,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7181267857993007093, guid: e36f03cf379fd0f41a3596da7f68f908, type: 3}
-      propertyPath: initPos_X
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7181267857993007093, guid: e36f03cf379fd0f41a3596da7f68f908, type: 3}
-      propertyPath: tiltAngle
-      value: -30
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2748,10 +2735,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 283751126}
     m_Modifications:
-    - target: {fileID: 5379819779113854998, guid: a7d8094a473f12941930bf2d58caf682, type: 3}
-      propertyPath: tiltAngle
-      value: -30
-      objectReference: {fileID: 0}
     - target: {fileID: 5782749954741396444, guid: a7d8094a473f12941930bf2d58caf682, type: 3}
       propertyPath: m_Name
       value: SwordMan
@@ -2848,10 +2831,6 @@ PrefabInstance:
     - target: {fileID: 849508768378065299, guid: fb71c8765ab400b4cb05ae3f26b69cb8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3283636719571698586, guid: fb71c8765ab400b4cb05ae3f26b69cb8, type: 3}
-      propertyPath: tiltAngle
-      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 6515548939350784562, guid: fb71c8765ab400b4cb05ae3f26b69cb8, type: 3}
       propertyPath: m_Name
@@ -2973,10 +2952,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: FemaleHero
       objectReference: {fileID: 0}
-    - target: {fileID: 6173938079908484537, guid: 6bcd41757f6916047b190237f6a5661e, type: 3}
-      propertyPath: tiltAngle
-      value: -30
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3033,10 +3008,6 @@ PrefabInstance:
     - target: {fileID: 7968959342046226311, guid: 78b9abcba80c4c34cb3180cb1f040491, type: 3}
       propertyPath: m_Name
       value: Mushroom
-      objectReference: {fileID: 0}
-    - target: {fileID: 9006167114168518595, guid: 78b9abcba80c4c34cb3180cb1f040491, type: 3}
-      propertyPath: tiltAngle
-      value: -30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3126,10 +3097,6 @@ PrefabInstance:
     - target: {fileID: 2147614757021072260, guid: a6222e3131f05454dac79fcaac21ecf3, type: 3}
       propertyPath: m_Name
       value: Wizard
-      objectReference: {fileID: 0}
-    - target: {fileID: 5632827304871251186, guid: a6222e3131f05454dac79fcaac21ecf3, type: 3}
-      propertyPath: tiltAngle
-      value: -30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

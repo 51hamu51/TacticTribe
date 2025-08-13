@@ -89,20 +89,13 @@ public class Character : MonoBehaviour
         pos.z = initPos_Z;
         transform.position = pos;
 
+        this.transform.eulerAngles = new Vector3(tiltAngle, 180, 0);
+
         xPos = initPos_X;
         zPos = initPos_Z;
 
         nowHP = maxHP;
     }
-
-    /* void LateUpdate()
-    {
-        // 現在のY回転を保持
-        float currentY = transform.eulerAngles.y;
-
-        // Y回転を維持しつつX軸に傾きを追加
-        transform.rotation = Quaternion.Euler(tiltAngle, currentY, 0f);
-    } */
 
     /// <summary>
     /// 攻撃を受ける

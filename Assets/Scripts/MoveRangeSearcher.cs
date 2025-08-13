@@ -10,8 +10,6 @@ public class MoveRangeSearcher : MonoBehaviour
 
     public ButtonManager buttonManager;
 
-    public float tiltAngle = -30f;   // 背中側に傾ける角度
-
     //経路復元用
     private Dictionary<(int, int), (int, int)?> parentMap;
 
@@ -246,7 +244,7 @@ public class MoveRangeSearcher : MonoBehaviour
                 seq.Append(character.transform.DOLookAt(pos, 0.1f).OnUpdate(() =>
                 {
                     Vector3 euler = character.transform.eulerAngles;
-                    character.transform.eulerAngles = new Vector3(tiltAngle, euler.y, euler.z);
+                    character.transform.eulerAngles = new Vector3(character.tiltAngle, euler.y, euler.z);
                 }));
             }
 

@@ -489,7 +489,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1361404661948225718}
   - component: {fileID: 5017870335339983312}
-  - component: {fileID: 4992609522236704351}
   - component: {fileID: 5632827304871251186}
   m_Layer: 0
   m_Name: Wizard
@@ -537,29 +536,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!136 &4992609522236704351
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2147614757021072260}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.3072609
-  m_Height: 1.882848
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.98, z: 0}
 --- !u!114 &5632827304871251186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -583,6 +559,7 @@ MonoBehaviour:
   def: 1
   IsEnemy: 0
   fadeDuration: 1
+  tiltAngle: -10
   attackPattern: 1
   movePattern: 3
 --- !u!1 &2182771657215162164

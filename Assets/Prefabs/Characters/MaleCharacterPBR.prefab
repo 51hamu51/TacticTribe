@@ -998,7 +998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feea09abbd79bf04aaf7e2a6ab2be1e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initPos_X: 2
+  initPos_X: 1
   initPos_Z: 2
   xPos: 0
   zPos: 0
@@ -1009,6 +1009,7 @@ MonoBehaviour:
   def: 3
   IsEnemy: 0
   fadeDuration: 1
+  tiltAngle: -20
   attackPattern: 0
   movePattern: 2
 --- !u!1 &2391851993769041296

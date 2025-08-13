@@ -1531,6 +1531,7 @@ MonoBehaviour:
   def: 3
   IsEnemy: 0
   fadeDuration: 1
+  tiltAngle: -20
   attackPattern: 0
   movePattern: 3
 --- !u!1 &5924015722120002725

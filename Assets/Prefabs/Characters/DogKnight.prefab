@@ -1577,7 +1577,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6085447478138635484}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.9659259, z: 0.258819, w: 0}
+  m_LocalRotation: {x: 0, y: 0.9659259, z: 0.258819, w: 0}
   m_LocalPosition: {x: 2.03, y: 0, z: 0.042}
   m_LocalScale: {x: 0.70000005, y: 0.7, z: 0.6999999}
   m_ConstrainProportionsScale: 1
@@ -1631,6 +1631,7 @@ MonoBehaviour:
   def: 2
   IsEnemy: 0
   fadeDuration: 1
+  tiltAngle: -20
   attackPattern: 0
   movePattern: 2
 --- !u!1 &6140719855366340472

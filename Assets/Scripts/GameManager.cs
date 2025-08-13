@@ -81,7 +81,11 @@ public class GameManager : MonoBehaviour
 
         if (targetObject != null)
         {
-            SelectBlock(targetObject.GetComponent<Field>());
+            Field field = targetObject.GetComponent<Field>();
+            if (field != null)
+            {
+                SelectBlock(field);
+            }
         }
     }
 
