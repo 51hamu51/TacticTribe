@@ -169,9 +169,44 @@ public class GameManager : MonoBehaviour
         var charaData = characterManager.GetCharacterAtPosition(targetBlock.xPos, targetBlock.zPos);
         if (charaData != null && charaData.IsEnemy)
         {
-            charaData.Damage(selectingChara.atk);
+            // 攻撃モーション再生
+            Animator animator = selectingChara.GetComponent<Animator>();
+            if (animator != null)
+            {
+                animator.SetTrigger("Attack");
+                // 攻撃モーション終了後にダメージ
+                StartCoroutine(WaitForAttackEnd(animator, "Attack", charaData, selectingChara.atk));
+            }
+            else
+            {
+                // Animator がない場合は即ダメージ
+                charaData.Damage(selectingChara.atk);
+            }
         }
 
         nowPhase = Phase.MyTurn_Start;
+    }
+
+    /// <summary>
+    /// 指定アニメーション終了まで待ってからダメージ
+    /// </summary>
+    private IEnumerator WaitForAttackEnd(Animator animator, string stateName, Character target, int damage)
+    {
+        // Animator が Attack ステートに遷移するまで待つ
+        while (!animator.GetCurrentAnimatorStateInfo(0).IsName(stateName))
+        {
+            yield return null;
+        }
+
+        // アニメーションの終了を待つ
+        AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
+        while (state.normalizedTime < 1f)
+        {
+            yield return null;
+            state = animator.GetCurrentAnimatorStateInfo(0);
+        }
+
+        // ダメージを与える
+        target.Damage(damage);
     }
 }

@@ -10,6 +10,8 @@ public class MoveRangeSearcher : MonoBehaviour
 
     public ButtonManager buttonManager;
 
+    public float tiltAngle = -30f;   // 背中側に傾ける角度
+
     //経路復元用
     private Dictionary<(int, int), (int, int)?> parentMap;
 
@@ -206,14 +208,61 @@ public class MoveRangeSearcher : MonoBehaviour
         }
         path.Reverse();
 
-        // DOTweenで順番に移動（縦→横）
+        // Animator取得
+        Animator animator = character.GetComponent<Animator>();
+
+        // DOTweenで順番に移動
         Sequence seq = DOTween.Sequence();
+
+        //移動開始時に walk 再生
+        seq.AppendCallback(() =>
+        {
+            if (animator != null)
+            {
+                animator.SetTrigger("Walk");
+            }
+        });
+
+        //アニメーションが始まるまでの時間稼ぎ
+        seq.AppendInterval(0.1f);
+
+        Vector3? lastDir = null; // 前回の移動方向
+
         foreach (var pos in path)
         {
-            seq.Append(character.transform.DOMove(pos, 0.25f).SetEase(Ease.Linear));
+            // 今いる位置から次の位置への方向ベクトル（XZ平面）
+            Vector3 moveDir = (pos - character.transform.position).normalized;
+            moveDir.y = 0;
+
+            bool sameDirection = false;
+            if (lastDir.HasValue)
+            {
+                // 内積で方向の一致を判定（ほぼ同じ向きならtrue）
+                sameDirection = Vector3.Dot(lastDir.Value, moveDir) > 0.99f;
+            }
+
+            if (!sameDirection)
+            {
+                seq.Append(character.transform.DOLookAt(pos, 0.1f).OnUpdate(() =>
+                {
+                    Vector3 euler = character.transform.eulerAngles;
+                    character.transform.eulerAngles = new Vector3(tiltAngle, euler.y, euler.z);
+                }));
+            }
+
+            seq.Append(character.transform.DOMove(pos, 0.4f).SetEase(Ease.Linear));
+
+            lastDir = moveDir;
         }
+
         seq.OnComplete(() =>
         {
+            //移動完了時に idle に戻す
+            if (animator != null)
+            {
+                animator.SetTrigger("Idle");
+            }
+
             character.xPos = targetX;
             character.zPos = targetZ;
             buttonManager.ShowCommandButtons();

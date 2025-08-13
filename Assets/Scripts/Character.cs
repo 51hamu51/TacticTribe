@@ -60,6 +60,8 @@ public class Character : MonoBehaviour
     /// </summary>
     public float fadeDuration = 1f;
 
+    public float tiltAngle = -30f; // 背中側に傾ける角度
+
     public enum MovePattern
     {
         Rook,     // 飛車の動き
@@ -93,9 +95,14 @@ public class Character : MonoBehaviour
         nowHP = maxHP;
     }
 
-    void Update()
+    /* void LateUpdate()
     {
-    }
+        // 現在のY回転を保持
+        float currentY = transform.eulerAngles.y;
+
+        // Y回転を維持しつつX軸に傾きを追加
+        transform.rotation = Quaternion.Euler(tiltAngle, currentY, 0f);
+    } */
 
     /// <summary>
     /// 攻撃を受ける
