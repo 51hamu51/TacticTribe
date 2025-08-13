@@ -1002,7 +1002,7 @@ MonoBehaviour:
   initPos_Z: 2
   xPos: 0
   zPos: 0
-  characterName: "\u7537\u306E\u5B50"
+  characterName: "\u5263\u58EB"
   maxHP: 6
   nowHP: 0
   atk: 3

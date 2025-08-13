@@ -583,7 +583,7 @@ MonoBehaviour:
   def: 1
   IsEnemy: 0
   fadeDuration: 1
-  attackPattern: 0
+  attackPattern: 1
   movePattern: 3
 --- !u!1 &2182771657215162164
 GameObject:

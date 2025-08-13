@@ -32,7 +32,13 @@ public class AttackRangeSearcher : MonoBehaviour
                 break;
 
             case Character.AttackPattern.Bow:
-
+                for (int i = -2; i < 3; i++)
+                {
+                    for (int j = -2; j < 3; j++)
+                    {
+                        SelectAttackFieldAtPosition(character.xPos + i, character.zPos + j);
+                    }
+                }
                 break;
         }
     }
