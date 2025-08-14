@@ -1630,8 +1630,9 @@ MonoBehaviour:
   atk: 2
   def: 2
   IsEnemy: 0
-  fadeDuration: 1
+  fadeDuration: 2
   tiltAngle: -20
+  animator: {fileID: 785274682596313165}
   attackPattern: 0
   movePattern: 2
 --- !u!1 &6140719855366340472
