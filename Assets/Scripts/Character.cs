@@ -64,6 +64,8 @@ public class Character : MonoBehaviour
 
     public Animator animator;
 
+    public CharacterManager characterManager;
+
     public enum MovePattern
     {
         Rook,     // 飛車の動き
@@ -130,6 +132,7 @@ public class Character : MonoBehaviour
     public void Dead()
     {
         animator.SetTrigger("Dead");
+        characterManager.UnregisterCharacter(this);
         //子オブジェクトのrendererを取得
         Renderer rend = GetComponentInChildren<Renderer>();
         if (rend != null)

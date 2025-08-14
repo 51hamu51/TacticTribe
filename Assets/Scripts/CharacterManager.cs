@@ -35,4 +35,16 @@ public class CharacterManager : MonoBehaviour
         }
         return null;
     }
+
+    /// <summary>
+    /// キャラクターの登録を解除する
+    /// </summary>
+    /// <param name="character">解除するキャラクター</param>
+    public void UnregisterCharacter(Character character)
+    {
+        if (characters.Contains(character))
+        {
+            characters.Remove(character);
+        }
+    }
 }

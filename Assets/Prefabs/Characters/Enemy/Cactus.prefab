@@ -508,6 +508,7 @@ MonoBehaviour:
   fadeDuration: 2
   tiltAngle: -30
   animator: {fileID: 5847484586207853699}
+  characterManager: {fileID: 0}
   attackPattern: 0
   movePattern: 0
 --- !u!1 &6600695922468515363
