@@ -58,9 +58,11 @@ public class Character : MonoBehaviour
     /// <summary>
     /// 死んで消えるのにかかる時間
     /// </summary>
-    public float fadeDuration = 1f;
+    public float fadeDuration = 2f;
 
     public float tiltAngle = -30f; // 背中側に傾ける角度
+
+    public Animator animator;
 
     public enum MovePattern
     {
@@ -106,6 +108,8 @@ public class Character : MonoBehaviour
         if (damage > 0)
         {
             nowHP -= damage;
+
+            animator.SetTrigger("Damage");
         }
         else
         {
@@ -125,6 +129,7 @@ public class Character : MonoBehaviour
 
     public void Dead()
     {
+        animator.SetTrigger("Dead");
         //子オブジェクトのrendererを取得
         Renderer rend = GetComponentInChildren<Renderer>();
         if (rend != null)
