@@ -4,6 +4,7 @@ public class ButtonManager : MonoBehaviour
 {
     public GameObject attackButton;
     public GameObject waitButton;
+    public GameObject backButton;
     void Start()
     {
         HideCommandButtons();
@@ -21,6 +22,7 @@ public class ButtonManager : MonoBehaviour
     {
         attackButton.SetActive(false);
         waitButton.SetActive(false);
+        backButton.SetActive(false);
     }
 
     /// <summary>
@@ -30,5 +32,6 @@ public class ButtonManager : MonoBehaviour
     {
         attackButton.SetActive(true);
         waitButton.SetActive(true);
+        backButton.SetActive(true);
     }
 }

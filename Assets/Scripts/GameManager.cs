@@ -27,6 +27,16 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private Character selectingChara;
 
+    /// <summary>
+    /// 選択中のキャラのy方向回転の値
+    /// </summary>
+    private float selectingCharaRotationY;
+
+    /// <summary>
+    /// ステータスを表示するやつ
+    /// </summary>
+    public GameObject StatusCanvas;
+
     public MapManager mapManager;
 
     public MoveRangeSearcher moveRangeSearcher;
@@ -54,6 +64,7 @@ public class GameManager : MonoBehaviour
         }
 
         nowPhase = Phase.MyTurn_Start;
+        StatusCanvas.SetActive(false);
     }
 
     void Update()
@@ -104,20 +115,27 @@ public class GameManager : MonoBehaviour
                 }
                 Debug.Log("ブロックがタップされました。\nブロックの座標：" + targetBlock.transform.position);
                 targetBlock.ChoiceOn();
+                StatusCanvas.SetActive(false);
                 preField = targetBlock;
 
                 //選択したマスにキャラがいたら次のフェーズへ
                 var charaData = characterManager.GetCharacterAtPosition(targetBlock.xPos, targetBlock.zPos);
                 if (charaData != null && !charaData.IsEnemy)
                 {
+                    StatusCanvas.SetActive(true);
+
                     selectingChara = charaData;
+                    selectingCharaRotationY = charaData.transform.eulerAngles.y;
                     moveRangeSearcher.ResearchReachableField(selectingChara);
                     statusDisplayManager.ShowStatus(selectingChara);
                     nowPhase = Phase.MyTurn_Moving;
                 }
                 else if (charaData != null)//敵ならステータスの表示のみ行う
                 {
+                    StatusCanvas.SetActive(true);
+
                     selectingChara = charaData;
+                    selectingCharaRotationY = charaData.transform.eulerAngles.y;
                     statusDisplayManager.ShowStatus(selectingChara);
                 }
                 break;
@@ -127,6 +145,12 @@ public class GameManager : MonoBehaviour
                 {
                     moveRangeSearcher.MoveCharacterTo(selectingChara, targetBlock.xPos, targetBlock.zPos);//指定座標まで移動
                     mapManager.AllChoiceOff();
+                }
+                else
+                {
+                    //キャラ指定をキャンセル
+                    mapManager.AllChoiceOff();
+                    nowPhase = Phase.MyTurn_Start;
                 }
                 break;
 
@@ -138,6 +162,13 @@ public class GameManager : MonoBehaviour
                 if (targetBlock.IsAttackable)
                 {
                     Attack(targetBlock);
+                }
+                else
+                {
+                    Debug.Log("AttackCancel");
+                    mapManager.AllChoiceOff();
+                    buttonManager.ShowCommandButtons();
+                    nowPhase = Phase.MyTurn_Command;
                 }
                 break;
         }
@@ -160,6 +191,17 @@ public class GameManager : MonoBehaviour
     {
         buttonManager.HideCommandButtons();
         nowPhase = Phase.MyTurn_Start;
+    }
+
+    /// <summary>
+    /// 戻るコマンドボタンが押されたとき
+    /// </summary>
+    public void BackCommand()
+    {
+        buttonManager.HideCommandButtons();
+        nowPhase = Phase.MyTurn_Start;
+        characterManager.WarpCharacter(selectingChara, preField.xPos, preField.zPos, selectingCharaRotationY);
+        SelectBlock(preField);
     }
 
     /// <summary>

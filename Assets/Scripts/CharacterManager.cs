@@ -47,4 +47,15 @@ public class CharacterManager : MonoBehaviour
             characters.Remove(character);
         }
     }
+
+    /// <summary>
+    /// キャラクターを指定座標にワープさせる
+    /// </summary>
+    public void WarpCharacter(Character character, int xPos, int zPos, float rotationY)
+    {
+        character.xPos = xPos;
+        character.zPos = zPos;
+        character.transform.position = new Vector3(character.xPos, 0.5f, character.zPos);
+        character.transform.eulerAngles = new Vector3(character.tiltAngle, rotationY, 0);
+    }
 }
