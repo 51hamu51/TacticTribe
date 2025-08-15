@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && nowPhase != Phase.MyTurn_Command) //コマンド選択中はマス選択できない
         {
             GetMapBlockByTapPos();
         }
@@ -145,6 +145,7 @@ public class GameManager : MonoBehaviour
                 {
                     moveRangeSearcher.MoveCharacterTo(selectingChara, targetBlock.xPos, targetBlock.zPos);//指定座標まで移動
                     mapManager.AllChoiceOff();
+                    nowPhase = Phase.MyTurn_Command;
                 }
                 else
                 {
