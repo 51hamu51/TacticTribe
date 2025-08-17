@@ -266,4 +266,113 @@ public class MoveRangeSearcher : MonoBehaviour
             buttonManager.ShowCommandButtons();
         });
     }
+
+
+    /// <summary>
+    /// 到達可能なFieldを調べ、リストを返す(敵用)
+    /// </summary>
+    public List<Field> ResearchReachableFieldList(Character character)
+    {
+        List<Field> reachable = new List<Field>();
+        switch (character.movePattern)
+        {
+            case Character.MovePattern.Rook:
+                LineMove(character, new Vector2Int[]
+                {
+                new Vector2Int(-1, 0), // 左
+                new Vector2Int(1, 0),  // 右
+                new Vector2Int(0, -1), // 下
+                new Vector2Int(0, 1)   // 上
+                });
+                break;
+
+            case Character.MovePattern.Bishop:
+                LineMove(character, new Vector2Int[]
+                {
+                new Vector2Int(1, 1),
+                new Vector2Int(1, -1),
+                new Vector2Int(-1, 1),
+                new Vector2Int(-1, -1)
+                });
+                break;
+
+            case Character.MovePattern.Step3:
+                parentMap = new Dictionary<(int, int), (int, int)?>();
+                Queue<(int x, int z, int dist)> queue = new Queue<(int, int, int)>();
+                HashSet<(int, int)> visited = new HashSet<(int, int)>();
+
+                queue.Enqueue((character.xPos, character.zPos, 0));
+                visited.Add((character.xPos, character.zPos));
+                parentMap[(character.xPos, character.zPos)] = null;//起点
+
+                // 移動方向ベクトル（左、右、下、上）
+                Vector2Int[] directions = new Vector2Int[]
+                {
+                    new Vector2Int(-1, 0), // 左
+                    new Vector2Int(1, 0),  // 右
+                    new Vector2Int(0, -1), // 下
+                    new Vector2Int(0, 1)   // 上
+                };
+
+                while (queue.Count > 0)
+                {
+                    var (x, z, dist) = queue.Dequeue();
+
+                    // キャラ判定
+                    Character c = characterManager.GetCharacterAtPosition(x, z);
+                    bool isSelf = (c == character);
+                    bool isEmpty = (c == null);
+
+                    if (isEmpty || isSelf)
+                    {
+                        if (mapManager.fieldDict.TryGetValue((x, z), out Field field))
+                        {
+                            reachable.Add(field);
+                        }
+                    }
+
+                    // 距離制限
+                    if (dist >= 3) continue;
+
+                    // 探索
+                    foreach (var dir in directions)
+                    {
+                        int nx = x + dir.x;
+                        int nz = z + dir.y;
+
+                        // 範囲外チェック
+                        if (nx < -mapManager.mapWidth / 2 || nx > mapManager.mapWidth / 2 ||
+                            nz < -mapManager.mapHeight / 2 || nz > mapManager.mapHeight / 2)
+                            continue;
+
+                        if (visited.Contains((nx, nz))) continue;
+
+                        if (mapManager.fieldDict.TryGetValue((nx, nz), out Field field))
+                        {
+                            if (field.IsProhibit) continue;
+
+                            Character other = characterManager.GetCharacterAtPosition(x, z);
+                            if (other != null && !other.IsEnemy)
+                                break;
+
+                            // キャラがいる場合
+                            visited.Add((nx, nz));
+                            queue.Enqueue((nx, nz, dist + 1));
+                            parentMap[(nx, nz)] = (x, z); // 親を保存
+                        }
+                    }
+                }
+                break;
+
+            case Character.MovePattern.Step4:
+                BFSRangeMove(character, 4);
+                break;
+
+
+
+        }
+
+        return reachable;
+    }
+
 }

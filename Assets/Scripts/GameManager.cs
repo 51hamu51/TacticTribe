@@ -47,12 +47,15 @@ public class GameManager : MonoBehaviour
 
     public AttackRangeSearcher attackRangeSearcher;
 
+    public EnemyTurnManager enemyTurnManager;
+
     public enum Phase
     {
         MyTurn_Start,     // 自分のターン開始
         MyTurn_Moving,    // 移動先選択中
         MyTurn_Command,   // 移動後のコマンド選択中
         MyTurn_Attack,  //攻撃先選択中
+        EnemyTurn,  //  敵のターン
     }
 
     void Start()
@@ -69,7 +72,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && nowPhase != Phase.MyTurn_Command) //コマンド選択中はマス選択できない
+        if (Input.GetMouseButtonDown(0) && nowPhase != Phase.MyTurn_Command && nowPhase != Phase.EnemyTurn) //コマンド選択中,敵ターンはマス選択できない
         {
             GetMapBlockByTapPos();
         }
@@ -172,6 +175,10 @@ public class GameManager : MonoBehaviour
                     nowPhase = Phase.MyTurn_Command;
                 }
                 break;
+
+            case Phase.EnemyTurn:
+
+                break;
         }
     }
 
@@ -181,7 +188,7 @@ public class GameManager : MonoBehaviour
     public void AttackCommand()
     {
         buttonManager.HideCommandButtons();
-        attackRangeSearcher.ResearchAttackableField(selectingChara);
+        attackRangeSearcher.ResearchAttackableField(selectingChara, selectingChara.xPos, selectingChara.zPos);
         nowPhase = Phase.MyTurn_Attack;
     }
 
@@ -191,7 +198,8 @@ public class GameManager : MonoBehaviour
     public void WaitCommand()
     {
         buttonManager.HideCommandButtons();
-        nowPhase = Phase.MyTurn_Start;
+        nowPhase = Phase.EnemyTurn;
+        enemyTurnManager.EnemyTurnStart();
     }
 
     /// <summary>
@@ -214,7 +222,7 @@ public class GameManager : MonoBehaviour
 
         //選択したマスに敵キャラがいたら攻撃
         var charaData = characterManager.GetCharacterAtPosition(targetBlock.xPos, targetBlock.zPos);
-        if (charaData != null && charaData.IsEnemy)
+        if (charaData != null && charaData.IsEnemy && !selectingChara.IsEnemy || charaData != null && !charaData.IsEnemy && selectingChara.IsEnemy)
         {
             // 攻撃対象の方向を向く
             Vector3 dir = charaData.transform.position - selectingChara.transform.position;
@@ -241,7 +249,15 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        nowPhase = Phase.MyTurn_Start;
+        if (nowPhase == Phase.MyTurn_Start)
+        {
+            nowPhase = Phase.EnemyTurn;
+            enemyTurnManager.EnemyTurnStart();
+        }
+        else
+        {
+            nowPhase = Phase.MyTurn_Start;
+        }
     }
 
     /// <summary>
@@ -265,5 +281,10 @@ public class GameManager : MonoBehaviour
 
         // ダメージを与える
         target.Damage(damage);
+    }
+
+    public void MoveToMyTurn()
+    {
+        nowPhase = Phase.MyTurn_Start;
     }
 }
