@@ -219,7 +219,7 @@ public class MoveRangeSearcher : MonoBehaviour
         {
             if (animator != null)
             {
-                //animator.SetTrigger("Walk");
+                animator.SetTrigger("Walk");
             }
         });
 
