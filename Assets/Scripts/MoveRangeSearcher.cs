@@ -10,6 +10,8 @@ public class MoveRangeSearcher : MonoBehaviour
 
     public ButtonManager buttonManager;
 
+    public GameManager gameManager;
+
     //経路復元用
     private Dictionary<(int, int), (int, int)?> parentMap;
 
@@ -192,7 +194,7 @@ public class MoveRangeSearcher : MonoBehaviour
     /// <summary>
     /// 指定座標まで移動（縦横順で移動）
     /// </summary>
-    public void MoveCharacterTo(Character character, int targetX, int targetZ)
+    public void MoveCharacterTo(Character character, int targetX, int targetZ, System.Action onComplete = null)
     {
         if (!parentMap.ContainsKey((targetX, targetZ))) return;
 
@@ -217,7 +219,7 @@ public class MoveRangeSearcher : MonoBehaviour
         {
             if (animator != null)
             {
-                animator.SetTrigger("Walk");
+                //animator.SetTrigger("Walk");
             }
         });
 
@@ -259,11 +261,17 @@ public class MoveRangeSearcher : MonoBehaviour
             if (animator != null)
             {
                 animator.SetTrigger("Idle");
+
+                // 移動完了時にコールバック実行
+                onComplete?.Invoke();
             }
 
             character.xPos = targetX;
             character.zPos = targetZ;
-            buttonManager.ShowCommandButtons();
+            if (!character.IsEnemy)
+            {
+                buttonManager.ShowCommandButtons();
+            }
         });
     }
 

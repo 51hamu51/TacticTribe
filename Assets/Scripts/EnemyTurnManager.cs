@@ -65,9 +65,11 @@ public class EnemyTurnManager : MonoBehaviour
                     {// 相手キャラクターが存在する
                         Debug.Log("target : " + targetChara.characterName);
                         // 敵キャラクター移動処理
-                        moveRangeSearcher.MoveCharacterTo(enemyData, attackBlock.xPos, attackBlock.zPos);
-                        // 敵キャラクター攻撃処理
-                        gameManager.Attack(attackBlock);
+                        moveRangeSearcher.MoveCharacterTo(enemyData, block.xPos, block.zPos, () =>
+                        {// 敵キャラクター攻撃処理
+                            gameManager.selectingChara = enemyData;
+                            gameManager.Attack(attackBlock);
+                        });
 
                         // 移動場所・攻撃場所リストをクリアする
                         reachableBlocks.Clear();

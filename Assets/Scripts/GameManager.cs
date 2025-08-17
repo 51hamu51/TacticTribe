@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// 選択中のキャラ
     /// </summary>
-    private Character selectingChara;
+    public Character selectingChara;
 
     /// <summary>
     /// 選択中のキャラのy方向回転の値
@@ -249,10 +249,10 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (nowPhase == Phase.MyTurn_Start)
+        if (nowPhase == Phase.MyTurn_Attack)
         {
             nowPhase = Phase.EnemyTurn;
-            enemyTurnManager.EnemyTurnStart();
+            Invoke(nameof(CallEnemyTurnStart), 2f);//アニメーションを見せるため遅延させる
         }
         else
         {
@@ -286,5 +286,10 @@ public class GameManager : MonoBehaviour
     public void MoveToMyTurn()
     {
         nowPhase = Phase.MyTurn_Start;
+    }
+
+    private void CallEnemyTurnStart()
+    {
+        enemyTurnManager.EnemyTurnStart();
     }
 }
