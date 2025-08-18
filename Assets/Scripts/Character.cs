@@ -11,6 +11,11 @@ public class Character : MonoBehaviour
     public int initPos_X;
 
     /// <summary>
+    /// 初期y位置
+    /// </summary>
+    public float initPos_Y;
+
+    /// <summary>
     /// 初期Z位置
     /// </summary>
     public int initPos_Z;
@@ -19,6 +24,11 @@ public class Character : MonoBehaviour
     /// x方向の位置
     /// </summary>
     public int xPos;
+
+    /// <summary>
+    /// y方向の位置
+    /// </summary>
+    public float yPos;
 
     /// <summary>
     /// z方向の位置
@@ -56,6 +66,11 @@ public class Character : MonoBehaviour
     public bool IsEnemy;
 
     /// <summary>
+    /// 2Dならtrue
+    /// </summary>
+    public bool Is2D;
+
+    /// <summary>
     /// 死んで消えるのにかかる時間
     /// </summary>
     public float fadeDuration = 2f;
@@ -89,13 +104,21 @@ public class Character : MonoBehaviour
         ///初期位置に配置
         Vector3 pos = new Vector3();
         pos.x = initPos_X;
-        pos.y = 0.5f;
+        pos.y = initPos_Y;
         pos.z = initPos_Z;
         transform.position = pos;
 
-        this.transform.eulerAngles = new Vector3(tiltAngle, 180, 0);
+        if (Is2D)
+        {
+            this.transform.eulerAngles = new Vector3(tiltAngle, 0, 0);
+        }
+        else
+        {
+            this.transform.eulerAngles = new Vector3(tiltAngle, 180, 0);
+        }
 
         xPos = initPos_X;
+        yPos = initPos_Y;
         zPos = initPos_Z;
 
         nowHP = maxHP;

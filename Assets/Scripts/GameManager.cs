@@ -224,15 +224,20 @@ public class GameManager : MonoBehaviour
         var charaData = characterManager.GetCharacterAtPosition(targetBlock.xPos, targetBlock.zPos);
         if (charaData != null && charaData.IsEnemy && !selectingChara.IsEnemy || charaData != null && !charaData.IsEnemy && selectingChara.IsEnemy)
         {
-            // 攻撃対象の方向を向く
-            Vector3 dir = charaData.transform.position - selectingChara.transform.position;
-            dir.y = 0; // 高さは無視
-            if (dir != Vector3.zero)
+            if (!selectingChara.Is2D)
             {
-                float targetY = Quaternion.LookRotation(dir).eulerAngles.y;
-                Vector3 currentEuler = selectingChara.transform.rotation.eulerAngles;
-                selectingChara.transform.rotation = Quaternion.Euler(currentEuler.x, targetY, currentEuler.z);
+                // 攻撃対象の方向を向く
+                Vector3 dir = charaData.transform.position - selectingChara.transform.position;
+
+                dir.y = 0; // 高さは無視
+                if (dir != Vector3.zero)
+                {
+                    float targetY = Quaternion.LookRotation(dir).eulerAngles.y;
+                    Vector3 currentEuler = selectingChara.transform.rotation.eulerAngles;
+                    selectingChara.transform.rotation = Quaternion.Euler(currentEuler.x, targetY, currentEuler.z);
+                }
             }
+
 
             // 攻撃モーション再生
             Animator animator = selectingChara.GetComponent<Animator>();

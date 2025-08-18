@@ -219,7 +219,7 @@ public class MoveRangeSearcher : MonoBehaviour
         {
             if (animator != null)
             {
-                animator.SetTrigger("Walk");
+                //animator.SetTrigger("Walk");
             }
         });
 
@@ -241,7 +241,7 @@ public class MoveRangeSearcher : MonoBehaviour
                 sameDirection = Vector3.Dot(lastDir.Value, moveDir) > 0.99f;
             }
 
-            if (!sameDirection)
+            if (!sameDirection && !character.Is2D)
             {
                 seq.Append(character.transform.DOLookAt(pos, 0.1f).OnUpdate(() =>
                 {
