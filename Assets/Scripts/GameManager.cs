@@ -49,6 +49,11 @@ public class GameManager : MonoBehaviour
 
     public EnemyTurnManager enemyTurnManager;
 
+    // ダブルタップ判定用
+    private float lastTapTime = 0f;
+    private const float doubleTapThreshold = 0.3f; // 2回タップの間隔(秒)
+
+
     public enum Phase
     {
         MyTurn_Start,     // 自分のターン開始
@@ -74,7 +79,10 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && nowPhase != Phase.MyTurn_Command && nowPhase != Phase.EnemyTurn) //コマンド選択中,敵ターンはマス選択できない
         {
-            GetMapBlockByTapPos();
+            if (IsDoubleTap())
+            {
+                GetMapBlockByTapPos();
+            }
         }
     }
 
@@ -296,5 +304,20 @@ public class GameManager : MonoBehaviour
     private void CallEnemyTurnStart()
     {
         enemyTurnManager.EnemyTurnStart();
+    }
+
+    /// <summary>
+    /// ダブルタップ判定
+    /// </summary>
+    private bool IsDoubleTap()
+    {
+        float currentTime = Time.time;
+        if (currentTime - lastTapTime < doubleTapThreshold)
+        {
+            lastTapTime = 0f; // 次の判定のためリセット
+            return true;
+        }
+        lastTapTime = currentTime;
+        return false;
     }
 }

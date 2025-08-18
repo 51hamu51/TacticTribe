@@ -10,8 +10,6 @@ public class MoveRangeSearcher : MonoBehaviour
 
     public ButtonManager buttonManager;
 
-    public GameManager gameManager;
-
     //経路復元用
     private Dictionary<(int, int), (int, int)?> parentMap;
 
