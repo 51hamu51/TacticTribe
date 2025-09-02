@@ -55,7 +55,14 @@ public class CharacterManager : MonoBehaviour
     {
         character.xPos = xPos;
         character.zPos = zPos;
-        character.transform.position = new Vector3(character.xPos, character.yPos, character.zPos);
+        if (character.Is2D)
+        {
+            character.transform.position = new Vector3(character.xPos, character.yPos, character.zPos - 0.5f);
+        }
+        else
+        {
+            character.transform.position = new Vector3(character.xPos, character.yPos, character.zPos);
+        }
         character.transform.eulerAngles = new Vector3(character.tiltAngle, rotationY, 0);
     }
 }

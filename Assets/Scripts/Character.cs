@@ -106,14 +106,16 @@ public class Character : MonoBehaviour
         pos.x = initPos_X;
         pos.y = initPos_Y;
         pos.z = initPos_Z;
-        transform.position = pos;
 
         if (Is2D)
         {
+            pos.z -= 0.5f;
+            transform.position = pos;
             this.transform.eulerAngles = new Vector3(tiltAngle, 0, 0);
         }
         else
         {
+            transform.position = pos;
             this.transform.eulerAngles = new Vector3(tiltAngle, 180, 0);
         }
 

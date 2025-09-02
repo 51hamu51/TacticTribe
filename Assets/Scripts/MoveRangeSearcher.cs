@@ -201,7 +201,14 @@ public class MoveRangeSearcher : MonoBehaviour
         var cur = (targetX, targetZ);
         while (cur != (character.xPos, character.zPos))
         {
-            path.Add(new Vector3(cur.Item1, character.transform.position.y, cur.Item2));
+            if (character.Is2D)
+            {
+                path.Add(new Vector3(cur.Item1, character.transform.position.y, cur.Item2 - 0.5f));
+            }
+            else
+            {
+                path.Add(new Vector3(cur.Item1, character.transform.position.y, cur.Item2));
+            }
             cur = parentMap[cur].Value;
         }
         path.Reverse();

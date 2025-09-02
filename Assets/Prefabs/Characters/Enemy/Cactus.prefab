@@ -496,8 +496,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initPos_X: -4
+  initPos_Y: 0.5
   initPos_Z: 2
   xPos: 0
+  yPos: 0
   zPos: 0
   characterName: "\u30B5\u30DC\u30C6\u30F3"
   maxHP: 8
@@ -505,12 +507,13 @@ MonoBehaviour:
   atk: 4
   def: 2
   IsEnemy: 1
+  Is2D: 0
   fadeDuration: 2
   tiltAngle: -30
   animator: {fileID: 5847484586207853699}
   characterManager: {fileID: 0}
   attackPattern: 0
-  movePattern: 0
+  movePattern: 2
 --- !u!1 &6600695922468515363
 GameObject:
   m_ObjectHideFlags: 0

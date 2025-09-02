@@ -656,8 +656,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initPos_X: -3
+  initPos_Y: 0.5
   initPos_Z: 2
   xPos: 0
+  yPos: 0
   zPos: 0
   characterName: "\u30AD\u30CE\u30B3"
   maxHP: 7
@@ -665,6 +667,7 @@ MonoBehaviour:
   atk: 4
   def: 2
   IsEnemy: 1
+  Is2D: 0
   fadeDuration: 2
   tiltAngle: -30
   animator: {fileID: 222029175347204001}
